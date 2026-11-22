@@ -26,6 +26,7 @@ class BaseTest(ABC):
         except ConnectionError as e:
             self.status="ERROR"
             print(f"Test execution issue {e}")
+            raise
         else:
             if not self.steps:       
                 self.status="ERROR"
@@ -33,6 +34,8 @@ class BaseTest(ABC):
                 self.status="PASSED"
             else:
                 self.status="FAILED"
+            
+            return self.status #"why this is in else"
 
 
 
@@ -101,3 +104,8 @@ reporter=JIRAReporter()
 for test in tests:
     test.run()
     reporter.publish(test)
+
+
+if __name__=="__main__":
+    pass
+    #nothing to do
