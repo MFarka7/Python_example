@@ -94,18 +94,18 @@ class JIRAReporter:
         print()
 
 
+def main():
+    tests = [
+        APITest("API-001", "Login API", "/api/login"),
+        UITest("UI-001", "Login UI")
+    ]
 
-tests = [
-    APITest("API-001", "Login API", "/api/login"),
-    UITest("UI-001", "Login UI")
-]
-
-reporter=JIRAReporter()
-for test in tests:
-    test.run()
-    reporter.publish(test)
+    reporter=JIRAReporter()
+    for test in tests:
+        test.run()
+        reporter.publish(test)
 
 
 if __name__=="__main__":
-    pass
+    main()
     #nothing to do
