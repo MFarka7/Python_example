@@ -8,23 +8,16 @@ class BaseTest(ABC):
         self.status = "NOT STARTED"
         self.steps = []
 
-    def add_step_result(self, step_name, expected, actual) -> bool: 
-        step_result = expected == actual
+    def add_step_result(self, step_name, expected, actual): 
+       
 
         self.steps.append({
             "name": step_name,
             "expected": expected,
             "actual": actual,
-            "passed": step_result
+            "passed": expected==actual
         })
 
-        '''   if not step_result:
-            print(f"Step {step_name} failed. Expected: {expected}, Actual: {actual}")
-        
-        else:
-            print(f"Step {step_name} passed. Expected: {expected}, Actual: {actual}")'''
-          
-        return step_result
 
     def run(self):
         self.status="RUNNING"
