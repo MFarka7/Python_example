@@ -46,3 +46,13 @@ def test_error_test():
         test.run()
 
     assert test.status=="ERROR"
+
+@pytest.mark.parametrize("test,expected_status",
+    [
+        (PassingTest("Scenario 1", "Passing Test"),"PASSED"),
+        (FailingTest("Scenario 2", "Failing Test"),"FAILED"),
+        (EmptyTest("Scenario 3", "Empty test"),"INVALID")
+
+    ])
+def test_parametrization(test,expected_status):
+    assert test.run()==expected_status
