@@ -19,19 +19,19 @@ class BaseTest(ABC):
         self.status="RUNNING"
         try:
             self.execute()
-        except ConnectionError as e:
+        except Exception as exc:  
             self.status="ERROR"
-            print(f"Test execution issue {e}")
+            print(f"Test execution issue {exc}")
             raise
         else:
             if not self.steps:       
-                self.status="ERROR"
+                self.status="INVALID"
             elif self.steps and all(step.passed for step in self.steps):
                 self.status="PASSED"
             else:
                 self.status="FAILED"
             
-            return self.status #why do i need this?
+        return self.status #why do i need this?
 
 
 

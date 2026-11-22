@@ -23,13 +23,13 @@ class BaseTest(ABC):
         self.status="RUNNING"
         try:
             self.execute()
-        except ConnectionError as e:
+        except Exception as e:
             self.status="ERROR"
             print(f"Test execution issue {e}")
             raise
         else:
             if not self.steps:       
-                self.status="ERROR"
+                self.status="INVALID"
             elif self.steps and all(step["passed"] for step in self.steps):
                 self.status="PASSED"
             else:
