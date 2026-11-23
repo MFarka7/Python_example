@@ -1,3 +1,4 @@
+import json
 from abc import ABC, abstractmethod
 
 
@@ -94,6 +95,25 @@ class JIRAReporter:
         print()
 
 
+class TestDataLoader:
+
+    @staticmethod
+    def load_scenarios(filepath):
+        with open(filepath, encoding='UTF-8') as json_data:
+            data=json.load(json_data)
+              
+        scenarios = data.get("scenarios")
+
+        if not isinstance(scenarios, list):
+            raise TypeError('there is no list')
+
+        if not scenarios:
+            raise ValueError('scenarios not in JSON')
+        
+        return scenarios
+
+
+
 def main():
     tests = [
         APITest("API-001", "Login API", "/api/login"),
@@ -105,6 +125,9 @@ def main():
         test.run()
         reporter.publish(test)
 
+ 
+    data=TestDataLoader.load_scenarios("./data/login_scenarios.json")
+    print(data)
 
 if __name__=="__main__":
     main()
